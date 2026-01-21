@@ -19,7 +19,7 @@ class BaseModel(models.Model):
     )
 
     class Meta:
-        abstract = True 
+        abstract = True
 
 
 class Location(BaseModel):
@@ -104,17 +104,18 @@ class Post(BaseModel):
         related_name='posts',
         verbose_name='Категория'
     )
+
     @classmethod
     def published(cls):
         return cls.objects.select_related(
-                'category',
-                'location',
-                'author'
-            ).filter(
-                is_published=True,
-                pub_date__lte=timezone.now(),
-                category__is_published=True
-            )
+            'category',
+            'location',
+            'author'
+        ).filter(
+            is_published=True,
+            pub_date__lte=timezone.now(),
+            category__is_published=True
+        )
 
     class Meta:
         verbose_name = 'публикация'
